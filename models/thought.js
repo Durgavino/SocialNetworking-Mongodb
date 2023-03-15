@@ -1,4 +1,6 @@
 const mongoose = require('mongoose');
+
+const Schema = mongoose.Schema;
 const timestamp = require('../utils/timestamp');
 
 const thoughtschema = new mongoose.Schema({
@@ -32,7 +34,7 @@ const thoughtschema = new mongoose.Schema({
 
 const reactionSchema = new mongoose.Schema({
     reactionID: {
-        type: Schema.Types.ObjectId,
+        type:Schema.Types.ObjectId,
         default: () => new Types.ObjectId()
     },
     reactionBody: {
