@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const { type } = require('os');
+
 
 const userschema = new mongoose.Schema(
     {
@@ -36,4 +36,10 @@ const userschema = new mongoose.Schema(
 );
 
 
-userschema.virtual()
+userschema.virtual('friendCount').get(function(){
+    return this.friends.length;
+});
+
+const User=model('user',userschema);
+
+module.exports=User;
