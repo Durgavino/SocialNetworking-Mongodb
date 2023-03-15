@@ -16,16 +16,17 @@ const userschema = new mongoose.Schema(
             type: String,
             required: true,
             unique: true,
-            Email:mongoose.SchemaTypes.Email
+           // Email:mongoose.SchemaTypes.Email
+           match: [/.+@.+\..+/, 'Must match an email address!'],
         },
         thoughts: [{
-            type: Schema.types.objectID,
+            type: Schema.Types.ObjectID,
             ref: 'thought'
         }
         ],
         friends: [
             {
-                type: Schema.types.objectID,
+                type: Schema.Types.ObjectID,
                 ref: 'user'
             }
         ],
