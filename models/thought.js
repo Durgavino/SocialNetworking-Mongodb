@@ -1,57 +1,63 @@
-const mongoose=require('mongoose');
+const mongoose = require('mongoose');
+const timestamp = require('../utils/timestamp');
 
-const thoughtschema=new mongoose.Schema({
-thoughtText:{
-    type:String,
-    required:true,
-    minlength:1,
-    maxlength:280
-},
-createdAT:{
-    type:Date,
-    timestamps:true
-},
-username:{
-    type:String,
-    required:true
-},
-reactions:
-    [reactionSchema]
-
-
-},
-{
-    toJSON:{
-        virtuals:true,
+const thoughtschema = new mongoose.Schema({
+    thoughtText: {
+        type: String,
+        required: true,
+        minlength: 1,
+        maxlength: 280
     },
-    id:false,
-});
-
-const reactionSchema=new mongoose.Schema({
-reactionID:{
-    ///
-},
-reactionBody:{
-    type:string,
-    required:true,
-    maxlength:280
-},
-username:{
-    type:string,
-    required:true
-},
-createdAt:{
-    type:date,
-
-}
-
-},
-{
-    toJson:{
-virtuals:true,
+    createdAT: {
+        type: Date,
+        default: Date.now,
+        get: stamp => timestamp(stamp)
     },
-    id:false,
-});
+    username: {
+        type: String,
+        required: true
+    },
+    reactions:
+        [reactionSchema]
+
+
+},
+    {
+        toJSON: {
+            virtuals: true,
+            getters: true,
+        },
+        id: false,
+    });
+
+const reactionSchema = new mongoose.Schema({
+    reactionID: {
+        type: Schema.Types.ObjectId,
+        default: () => new Types.ObjectId()
+    },
+    reactionBody: {
+        type: string,
+        required: true,
+        maxlength: 280
+    },
+    username: {
+        type: string,
+        required: true
+    },
+    createdAt: {
+        type: date,
+        default: Date.now,
+        get: tstamp => timestamp(tstamp)
+    }
+
+},
+    {
+        toJson: {
+            virtuals: true,
+            getters: true,
+        },
+        id: false,
+    });
 
 
 
@@ -59,9 +65,9 @@ virtuals:true,
 
 
 
-thoughtschema.virtual('reactioncount').get(function(){
+thoughtschema.virtual('reactioncount').get(function () {
     return this.reactions.length;
 });
 
-const Thought =mongoose.model('thougth',thoughtschema);
-module.exports= Thought;
+const Thought = mongoose.model('thougth', thoughtschema);
+module.exports = Thought;

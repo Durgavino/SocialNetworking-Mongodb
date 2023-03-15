@@ -1,4 +1,6 @@
 const mongoose = require('mongoose');
+require('mongoose-type-email');
+
 
 
 const userschema = new mongoose.Schema(
@@ -12,8 +14,8 @@ const userschema = new mongoose.Schema(
         email: {
             type: String,
             required: true,
-            unique: true
-            //
+            unique: true,
+            Email:mongoose.SchemaTypes.Email
         },
         thoughts: [{
             type: Schema.types.objectID,
