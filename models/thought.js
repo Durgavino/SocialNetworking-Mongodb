@@ -51,13 +51,13 @@ const reactionSchema = new mongoose.Schema({
     }
 
 },
-    {
+{
         toJson: {
             virtuals: true,
             getters: true,
         },
         id: false,
-    });
+});
 
 
 
