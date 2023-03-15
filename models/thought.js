@@ -19,7 +19,45 @@ reactions:
     [reactionSchema]
 
 
+},
+{
+    toJSON:{
+        virtuals:true,
+    },
+    id:false,
 });
+
+const reactionSchema=new mongoose.Schema({
+reactionID:{
+    ///
+},
+reactionBody:{
+    type:string,
+    required:true,
+    maxlength:280
+},
+username:{
+    type:string,
+    required:true
+},
+createdAt:{
+    type:date,
+
+}
+
+},
+{
+    toJson:{
+virtuals:true,
+    },
+    id:false,
+});
+
+
+
+
+
+
 
 thoughtschema.virtual('reactioncount').get(function(){
     return this.reactions.length;
