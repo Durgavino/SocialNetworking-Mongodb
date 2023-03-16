@@ -34,7 +34,7 @@ const reactionSchema = new mongoose.Schema({
         id: false,
     });
 
-    
+
 const thoughtschema = new Schema({
     thoughtText: {
         type: String,
@@ -58,8 +58,7 @@ const thoughtschema = new Schema({
 },
     {
         toJSON: {
-            virtuals: true,
-            getters: true,
+                     getters: true,
         },
         id: false,
     });
