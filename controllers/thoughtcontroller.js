@@ -18,7 +18,7 @@ module.exports = {
                 );
             })
             .then((thoughts) => !thoughts ? res.status(404)
-                .json({ message: 'Thought Created' })
+                .json({ message: 'Thought Created but no user for this ID' })
                 : res.json({ message: 'Thought Created' })
 
             )
