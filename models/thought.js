@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const { Schema, model } = require('mongoose');
-//const Schema = mongoose.Schema;
+//const Schema = mongoose.Schema; 
 const timestamp = require('../utils/timestamp');
 
 
@@ -69,5 +69,5 @@ thoughtschema.virtual('reactioncount').get(function () {
     return this.reactions.length;
 });
 
-const thought = mongoose.model('thougth', thoughtschema);
+const thought = mongoose.model('thought', thoughtschema);
 module.exports = thought;

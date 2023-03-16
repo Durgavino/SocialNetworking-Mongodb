@@ -10,14 +10,16 @@ module.exports = {
     getAllThought(req, res) {
         Thought.find()
             .then((thoughts) => {res.json(thoughts)})
-            .catch((err) => res.status(500).json(err));
+            .catch((err) => {
+                console.log(err);
+                res.status(500).json(err)});
     },
 
     CreateaThought(req, res) {
         Thought.create(req.body)
             .then((_id) => {
                 return Thought.findOneAndUpdate(
-                    { _id: req.body._id },
+                    { _id: req.body.userId },
                     { $push: { thoughts: _id } },
                     { new: true }
                 );
