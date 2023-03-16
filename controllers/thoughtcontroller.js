@@ -1,5 +1,5 @@
 const Thought = require('../models/thought');
-
+const user = require('../models/user');
 module.exports = {
     // getAllThought(req, res) {
     //     Thought.find()
@@ -32,6 +32,46 @@ module.exports = {
             .catch((err) => {
                 console.error(err);
             });
+    },
+    postreaction(req,res){
+        Thought.findOneAndUpdate({ _id: req.params.thoughtId },{
+            $addToSet:{reactions:req.body}
+        },
+        {
+            runValidators:true,
+            new:true
+        })
+            .then((thought) => {
+                if (!thought) {
+                    return res.status(404).json({
+                        Message: 'No Thought with that ID'
+                    })
+                }
+                res.json(thought)
+            })
+    },
+    deletereaction(req,res){
+        Thought.findOneAndRemove({ _id: req.params.thoughtId })
+            .then((thought) => {
+                if (!thought) {
+                    return res.status(404).json({
+                        Message: 'No Thought with that ID'
+                    })
+                }
+                return User.findOndAndUpdate({thoughts:req.params.id},{
+                    $pull:{thoughts:req.params.id}
+                },{
+                    new:true
+                })
+                
+            }).then(user=>{
+                if (!user) {
+                    return res.status(404).json({
+                        Message: 'No User with that ID'
+                    })
+                }
+                res.json({ message: 'Reaction is  Deleted' })
+            })
     }
 
 
