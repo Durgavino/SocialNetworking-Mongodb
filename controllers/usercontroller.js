@@ -5,8 +5,13 @@ module.exports = {
     //All User
     getuser(req,res){
         User.find()
-        .then((users)=>res.json(users))
+        .then((user)=>res.json(user))
         .catch((err)=>res.status(500).json(err));
-    }
+    },
 
+createaNewUser(req,res){
+    User.create(req.body)
+    .then((user)=>res.json(user))
+    .catch((err)=>res.status(500).json(err));
+}
 }
