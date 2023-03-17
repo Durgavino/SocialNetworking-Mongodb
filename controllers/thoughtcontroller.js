@@ -74,7 +74,7 @@ postreaction(req,res){
   },
 
   getThoughtById(req, res) {
-    Thought.find()
+    Thought.find({_id:req.params.thoughtId})
       .then((thought) =>
         !thought ? res.status(404).json({
           message: 'NoThought with that ID'
@@ -83,7 +83,29 @@ postreaction(req,res){
       )
       .catch((err) => res.status(500).json(err));
 
+  },
+  updatethought(req,res){
+    Thought.findOneAndUpdate({_id:req.params.thoughtId},
+      {$set:req.body},
+      {
+        runValidators:true,
+        new:true
+      })
+      .then((thought)=>{
+        if(!thought){
+          return res.status(404).json({message:'No Thought with that Id'})
+        }
+        res.json({message:'Thought is Updated'})
+      })
+  },
+  deletethought(req,res){
+    Thought.findOneAndDelete({_id:req.params.thoughtId})
+    .then((thought)=>{
+      if(!thought){
+        return res.status(404).json({message:'No Thought with that ID'})
+      }
+      res.json({message:'Thought is Deleted'})
+    })
   }
-
 
 }

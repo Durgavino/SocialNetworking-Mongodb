@@ -54,23 +54,23 @@ module.exports = {
                 res.json({ message: 'User is  Updated' })
             })
     },
-    // addNewFriend(req,res){
-    //     User.findOneAndUpdate({_id:req.params.userId},
-    //         {$addToSet:{friends:req.body}
-    //     },
-    //     {
-    //         runValidators:true,
-    //         new:true
-    //     })
-    //     .then((user)=>{
-    //         if(!user){
-    //             return res.status(404).json({
-    //                 message:'No User with ID'
-    //             })
-    //         }
-    //         res.json(user)
-    //     })
-    // }
+    addNewFriend(req,res){
+        User.findOneAndUpdate({_id:req.params.userId},
+            {$addToSet:{friends:req.body}
+        },
+        {
+            runValidators:true,
+            new:true
+        })
+        .then((user)=>{
+            if(!user){
+                return res.status(404).json({
+                    message:'No User with ID'
+                })
+            }
+            res.json(user)
+        })
+    }
 
 
 

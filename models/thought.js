@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const { Schema,Types, model } = require('mongoose');
+const { Schema, Types, model } = require('mongoose');
 
 //const Schema = mongoose.Schema; 
 const timestamp = require('../utils/timestamp');
@@ -59,7 +59,7 @@ const thoughtschema = new Schema({
 },
     {
         toJSON: {
-                     getters: true,
+            getters: true,
         },
         id: false,
     });
