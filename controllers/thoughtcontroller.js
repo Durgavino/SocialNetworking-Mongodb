@@ -49,36 +49,77 @@ module.exports = {
                 }
                 res.json(thought)
             })
-    },
-    deletereaction(req,res){
-        Thought.findOneAndRemove({ _id: req.params.thoughtId })
-            .then((thought) => {
-                if (!thought) {
-                    return res.status(404).json({
-                        Message: 'No Thought with that ID'
-                    })
-                }
-                return User.findOndAndUpdate({thoughts:req.params.id},{
-                    $pull:{thoughts:req.params.id}
-                },{
-                    new:true
-                })
+ },
+    // deletereaction(req,res){
+    //     Thought.findOneAndRemove({ _id: req.params.thoughtId })
+    //         .then((thought) => {
+    //             if (!thought) {
+    //                 return res.status(404).json({
+    //                     Message: 'No Thought with that ID'
+    //                 })
+    //             }
+    //             return User.findOndAndUpdate({thoughts:req.params.id},{
+    //                 $pull:{thoughts:req.params.id}
+    //             },{
+    //                 new:true
+    //             })
                 
-            }).then(user=>{
-                if (!user) {
-                    return res.status(404).json({
-                        Message: 'No User with that ID'
-                    })
-                }
-                res.json({ message: 'Reaction is  Deleted' })
-            })
-    }
+    //         }).then(user=>{
+    //             if (!user) {
+    //                 return res.status(404).json({
+    //                     Message: 'No User with that ID'
+    //                 })
+    //             }
+    //             res.json({ message: 'Reaction is  Deleted' })
+    //         })
+    // }
 
 
+    deletereaction(req, res) {
+        Thought.findOneAndUpdate(
+          { _id: req.params.thoughtId },
+          { $pull: { reactions: { reactionId: req.params.reactionId } } },
+          { runValidators: true, new: true }
+        )
+          .then((thought) => {
+            if (!thought) {
+              return res.status(404).json({
+                Message: "No Thought with that ID",
+              });
+            }
+          })
+          .then((user) => {
+            if (!user) {
+              return res.status(404).json({
+                Message: "No User with that ID",
+              });
+            }
+            res.json({ message: "Reaction is  Deleted" });
+          });
+      },
+
+      getThoughtById(req,res){
+        
+      }
 
 
-
-
+    // deletereaction(req, res) {
+    //     Thought.findOneAndUpdate(
+    //         { _id: req.params.thoughtId },
+    //         { $pull: { reactions: { reactionId: req.params.reactionId } } },
+    //         { runValidators: true, new: true }
+    //     )
+    //         .then((dbThoughtData) => {
+    //             if (!dbThoughtData) {
+    //                 return res.status(404).json({ message: 'No thought with this id!' });
+    //             }
+    //             res.json(dbThoughtData);
+    //         })
+    //         .catch((err) => {
+    //             console.log(err);
+    //             res.status(500).json(err);
+    //         });
+    // }
 
 
 }
