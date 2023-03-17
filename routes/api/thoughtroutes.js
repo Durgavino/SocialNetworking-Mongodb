@@ -4,11 +4,14 @@ const{
     getAllThought,
     CreateaThought,
     getThoughtById,
+    
 postreaction,
 deletereaction,
 }= require('../../controllers/thoughtcontroller.js');
 
 router.route('/').get(getAllThought).post(CreateaThought);
+
+
 
 router.route('/:thoughtId').get(getThoughtById);
 
