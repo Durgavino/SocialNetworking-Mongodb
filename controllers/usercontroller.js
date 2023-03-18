@@ -56,7 +56,7 @@ module.exports = {
     },
     addNewFriend(req,res){
         User.findOneAndUpdate({_id:req.params.userId},
-            {$addToSet:{friends:req.body}
+              {$addToSet:{friends:req.params.friendId}
         },
         {
             runValidators:true,
@@ -70,6 +70,24 @@ module.exports = {
             }
             res.json(user)
         })
+    },
+    deleteFriend(req,res){
+        User.findOneAndUpdate({_id:req.params.userId},
+            {$pull:{friend:{friendId:req.params.friendId}}
+      },
+      {
+          runValidators:true,
+          new:true
+      })
+      .then((user)=>{
+          if(!user){
+              return res.status(404).json({
+                  message:'No User with ID'
+              })
+          }
+          res.json(user)
+      })
+
     }
 
 
