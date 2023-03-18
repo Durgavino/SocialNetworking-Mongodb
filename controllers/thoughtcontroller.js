@@ -52,7 +52,7 @@ postreaction(req,res){
   deletereaction(req, res) {
     Thought.findOneAndUpdate(
       { _id: req.params.thoughtId },
-      { $pull: { reactions: { reactionId: req.params.reactionId } } },
+      { $pull: { reactions: { reactionID: req.params.reactionId } } },
       { runValidators: true, new: true }
     )
       .then((thought) => {
@@ -61,16 +61,8 @@ postreaction(req,res){
             Message: "No Thought with that ID",
           });
         }
+        res.json({message:"Reaction is Deleted"});
       })
-      .then((user) => {
-        if (!user) {
-          return res.status(404).json({
-            Message: "No User with that ID",
-
-          });
-        }
-        res.json({ message: "Reaction is  Deleted" });
-      });
   },
 
   getThoughtById(req, res) {
